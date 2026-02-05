@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe - Mobile IDE Sample</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Tic Tac Toe</h1>
+            <div class="score-board">
+                <div class="score">
+                    <span class="player">Player X</span>
+                    <span class="wins" id="player-x-score">0</span>
+                </div>
+                <div class="score">
+                    <span class="player">Player O</span>
+                    <span class="wins" id="player-o-score">0</span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="game-status">
+                <p id="game-message">Player X's turn</p>
+            </div>
+            
+            <div class="game-board" id="game-board">
+                <div class="cell" data-index="0"></div>
+                <div class="cell" data-index="1"></div>
+                <div class="cell" data-index="2"></div>
+                <div class="cell" data-index="3"></div>
+                <div class="cell" data-index="4"></div>
+                <div class="cell" data-index="5"></div>
+                <div class="cell" data-index="6"></div>
+                <div class="cell" data-index="7"></div>
+                <div class="cell" data-index="8"></div>
+            </div>
+            
+            <div class="game-controls">
+                <button id="reset-btn" class="btn btn-primary">New Game</button>
+                <button id="reset-score-btn" class="btn btn-secondary">Reset Score</button>
+            </div>
+        </main>
+
+        <footer>
+            <p>Built for Mobile Web Development</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
