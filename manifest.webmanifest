@@ -1,0 +1,17 @@
+{
+  "name": "Biblioteca Global de Resumos",
+  "short_name": "Resumos",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#eaf0ff",
+  "theme_color": "#2d6dff",
+  "lang": "pt-PT",
+  "icons": [
+    {
+      "src": "assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
