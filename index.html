@@ -1,55 +1,128 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic Tac Toe - Mobile IDE Sample</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Tic Tac Toe</h1>
-            <div class="score-board">
-                <div class="score">
-                    <span class="player">Player X</span>
-                    <span class="wins" id="player-x-score">0</span>
-                </div>
-                <div class="score">
-                    <span class="player">Player O</span>
-                    <span class="wins" id="player-o-score">0</span>
-                </div>
-            </div>
+<!doctype html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#2d6dff" />
+    <meta name="description" content="Biblioteca Global de Resumos - PWA" />
+    <title>Biblioteca Global de Resumos</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="app-shell">
+      <section id="screen-auth" class="screen active">
+        <header class="top-brand">
+          <img src="assets/icon.svg" alt="logo" class="logo" />
+          <div>
+            <h1>Biblioteca Global</h1>
+            <p>de Resumos e conteúdos didáticos</p>
+          </div>
         </header>
 
-        <main>
-            <div class="game-status">
-                <p id="game-message">Player X's turn</p>
-            </div>
-            
-            <div class="game-board" id="game-board">
-                <div class="cell" data-index="0"></div>
-                <div class="cell" data-index="1"></div>
-                <div class="cell" data-index="2"></div>
-                <div class="cell" data-index="3"></div>
-                <div class="cell" data-index="4"></div>
-                <div class="cell" data-index="5"></div>
-                <div class="cell" data-index="6"></div>
-                <div class="cell" data-index="7"></div>
-                <div class="cell" data-index="8"></div>
-            </div>
-            
-            <div class="game-controls">
-                <button id="reset-btn" class="btn btn-primary">New Game</button>
-                <button id="reset-score-btn" class="btn btn-secondary">Reset Score</button>
-            </div>
-        </main>
+        <div class="auth-cards">
+          <article class="card">
+            <h2>Entrar</h2>
+            <form id="login-form" class="stack">
+              <label>
+                Email
+                <input type="email" id="login-email" required placeholder="teu@email.com" />
+              </label>
+              <label>
+                Senha
+                <input type="password" id="login-password" required minlength="6" placeholder="••••••" />
+              </label>
+              <button class="btn btn-primary" type="submit">Entrar</button>
+            </form>
+          </article>
 
-        <footer>
-            <p>Built for Mobile Web Development</p>
-        </footer>
+          <article class="card">
+            <h2>Criar conta</h2>
+            <form id="register-form" class="stack">
+              <label>
+                Nome
+                <input type="text" id="register-name" required placeholder="Nome completo" />
+              </label>
+              <label>
+                Email
+                <input type="email" id="register-email" required placeholder="teu@email.com" />
+              </label>
+              <label>
+                Senha
+                <input type="password" id="register-password" required minlength="6" placeholder="mín. 6 caracteres" />
+              </label>
+              <button class="btn" type="submit">Criar conta</button>
+            </form>
+          </article>
+        </div>
+      </section>
+
+      <section id="screen-main" class="screen">
+        <header class="app-header">
+          <button id="back-btn" class="icon-btn" aria-label="Voltar">←</button>
+          <h2 id="view-title">Home</h2>
+          <button id="install-btn" class="icon-btn" aria-label="Instalar">⤓</button>
+        </header>
+
+        <main id="view-container"></main>
+
+        <button id="fab-add" class="fab" aria-label="Criar resumo">+</button>
+
+        <nav class="bottom-nav" aria-label="Navegação principal">
+          <button data-view="home" class="nav-item active">Home</button>
+          <button data-view="downloads" class="nav-item">Downloads</button>
+          <button data-view="notifications" class="nav-item">Notificações</button>
+          <button data-view="comments" class="nav-item">Comentários</button>
+          <button data-view="profile" class="nav-item">Perfil</button>
+          <button data-view="settings" class="nav-item">Config</button>
+        </nav>
+      </section>
     </div>
 
-    <script src="script.js"></script>
-</body>
+    <dialog id="editor-dialog">
+      <form method="dialog" id="editor-form" class="stack">
+        <h3>Novo Resumo</h3>
+        <label>
+          Título
+          <input type="text" id="resumo-title" required maxlength="80" />
+        </label>
+        <label>
+          Categoria
+          <select id="resumo-category" required>
+            <option value="Matemática">Matemática</option>
+            <option value="Física">Física</option>
+            <option value="História">História</option>
+            <option value="Programação">Programação</option>
+          </select>
+        </label>
+        <label>
+          Conteúdo
+          <textarea id="resumo-content" required minlength="40"></textarea>
+        </label>
+        <label>
+          PDF (simulado)
+          <input type="file" id="resumo-file" accept="application/pdf" />
+        </label>
+        <div class="dialog-actions">
+          <button value="cancel" class="btn">Cancelar</button>
+          <button id="publish-btn" value="default" class="btn btn-primary">Publicar</button>
+        </div>
+      </form>
+    </dialog>
+
+    <template id="card-template">
+      <article class="resumo-card">
+        <h4></h4>
+        <p class="meta"></p>
+        <p class="desc"></p>
+        <div class="card-actions">
+          <button class="btn-small favorite">☆ Favoritar</button>
+          <button class="btn-small download">⇩ Download</button>
+        </div>
+      </article>
+    </template>
+
+    <script src="script.js" defer></script>
+  </body>
 </html>
